@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <header class="greetings">
+  <header>
     <h1>{{ title }}</h1>
     <ButtonMain 
       @button-click="$emit('button-click')" 
@@ -27,6 +27,5 @@ defineProps({
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
   }
 </style>
