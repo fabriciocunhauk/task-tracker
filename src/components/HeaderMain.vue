@@ -4,6 +4,9 @@ import ButtonMain from './ButtonMain.vue';
 defineProps({
   title: {
     type: String,
+  },
+  showAddTask: {
+    type: Boolean
   }
 })
 </script>
@@ -11,7 +14,11 @@ defineProps({
 <template>
   <header class="greetings">
     <h1>{{ title }}</h1>
-    <ButtonMain text="Add Task" />
+    <ButtonMain 
+      @button-click="$emit('button-click')" 
+      :text="showAddTask ? 'Close' : 'Add Task'" 
+      :color="showAddTask ? 'red' : 'green'" 
+    />
   </header>
 </template>
 

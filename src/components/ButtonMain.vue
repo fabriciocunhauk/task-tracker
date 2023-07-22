@@ -3,20 +3,26 @@
         name: 'ButtonMain',
         methods: {
             onClick() {
-                console.log("click");
+                this.$emit('button-click')
             }
         },
         props: {
                 text: {
                 type: String,
                 required: true
-            }
+              },
+                color: {
+                type: String,
+              },
+              type: {
+                  type: String,
+              },
         }
     }
 </script>
 
 <template>
-    <button class="btn" @click="onClick()">{{ text }}</button>
+    <button type="type" class="btn" :style="{background: color}" @click="onClick()">{{ text }}</button>
 </template>
     
 <style scoped>

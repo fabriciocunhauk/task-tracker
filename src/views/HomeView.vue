@@ -4,12 +4,15 @@
   export default {
     components: {
       MainHeader
-    }
+    },
+    props: {
+            showAddTask: Boolean
+        },
   }
 </script>
 
 <template>
   <main>
-    <MainHeader title="Task Tracker" />
+    <MainHeader @button-click="$emit('button-click')" title="Task Tracker" :showAddTask="showAddTask" />
   </main>
 </template>

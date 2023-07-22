@@ -1,25 +1,31 @@
 <script>
-  import { RouterView } from 'vue-router';
   import HomeView from './views/HomeView.vue';
   import TasksList from './components/TasksList.vue';
+  import AddTaskForm from './components/AddTaskForm.vue';
 
   export default {
     components: {
       HomeView,
-      RouterView,
-      TasksList
+      TasksList,
+      AddTaskForm
     },
     data() {
       return {
-        tasks: []
+        tasks: [],
+        showAddTask: false
       }
     },
     methods: {
+      toggleAddTask() {
+        this.showAddTask = !this.showAddTask
+      },
+      addTask(task) {
+        this.tasks = [...this.tasks, task];
+      },
       deleteTask(id) {
         this.tasks = this.tasks.filter(task => task.id !== id)
       },
       toggleReminder(id) {
-        console.log("Toggle");
         this.tasks = this.tasks.map(task => task.id === id ? {...task, reminder: !task.reminder} : task)
       }
     },
@@ -49,18 +55,22 @@
 </script>
 
 <template>
-  <header>
+  <div class="wrapper">
     <div class="container">
-      <HomeView />
+      <HomeView 
+        @button-click="toggleAddTask" 
+        :showAddTask="showAddTask"
+      />
+      <div v-if="showAddTask">
+      <AddTaskForm @add-task="addTask" />
+      </div>
       <TasksList 
-      @toggle-reminder="toggleReminder" 
-      @delete-task="deleteTask" 
-      :tasks="tasks" 
+        @toggle-reminder="toggleReminder" 
+        @delete-task="deleteTask" 
+        :tasks="tasks" 
       />
     </div>
-  </header>
-
-  <RouterView />
+  </div>
 </template>
 
 <style scoped>
@@ -74,6 +84,14 @@
 
 body {
   font-family: 'Poppins', sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
 }
 
 .container {
