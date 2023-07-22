@@ -1,9 +1,15 @@
-<script setup>
-  import HelloWorld from '../components/HelloWorld.vue';
+<script>
+  import MainHeader from '../components/HeaderMain.vue';
+
+  export default {
+    components: {
+      MainHeader
+    }
+  }
 </script>
 
 <template>
   <main>
-    <HelloWorld />
+    <MainHeader title="Task Tracker" />
   </main>
 </template>
