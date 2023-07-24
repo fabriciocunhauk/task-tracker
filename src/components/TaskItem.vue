@@ -10,17 +10,13 @@
     <li @dblclick="$emit('toggle-reminder', task.id)" :class="[task.reminder ? 'reminder' : ' ' ,'task']">
         <h3>
             {{ task.text }}
-            <i @click="$emit('delete-task', task.id)" class="fas fa-solid fa-x"></i>
+            <i @click="$emit('delete-task', task.id)" class="fa-solid fa-x"></i>
         </h3>
         <p>{{ task.day }}</p>
     </li>
 </template>
 
 <style scope>
-.fas {
-  color: red;
-}
-
 .task {
   background: #f4f4f4;
   margin: 5px 0 5px 0;

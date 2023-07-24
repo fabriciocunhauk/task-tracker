@@ -1,71 +1,78 @@
 <script>
-  import MainHeader from '../components/HeaderMain.vue';
-  import AddTaskForm from '../components/AddTaskForm.vue';
-  import TasksList from '../components/TasksList.vue';
+import MainHeader from '../components/HeaderMain.vue'
+import AddTaskForm from '../components/AddTaskForm.vue'
+import TasksList from '../components/TasksList.vue'
 
-  export default {
-    components: {
-      MainHeader,
-      AddTaskForm,
-      TasksList
-    },
-    data() {
-      return {
-        tasks: [],
-        showAddTask: false
+export default {
+  components: {
+    MainHeader,
+    AddTaskForm,
+    TasksList
+  },
+  data() {
+    return {
+      tasks: [],
+      showAddTask: false
+    }
+  },
+  async created() {
+    this.tasks = await this.fetchTasks()
+  },
+  methods: {
+    async addTask(task) {
+      const url = 'http://localhost:3000/tasks'
+
+      const taskToAdd = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(task)
       }
+
+      await fetch(url, taskToAdd)
+
+      this.tasks = [...this.tasks, task]
     },
-     methods: {
-       toggleAddTask() {
-        this.showAddTask = !this.showAddTask
-      },
-      addTask(task) {
-        this.tasks = [...this.tasks, task];
-      },
-      deleteTask(id) {
-        this.tasks = this.tasks.filter(task => task.id !== id)
-      },
-      toggleReminder(id) {
-        this.tasks = this.tasks.map(task => task.id === id ? {...task, reminder: !task.reminder} : task)
-      }
+    async deleteTask(id) {
+      const url = `http://localhost:3000/tasks/${id}`
+
+      const res = await fetch(url, {
+        method: 'DELETE'
+      })
+
+      res.status === 200
+        ? (this.tasks = this.tasks.filter((task) => task.id !== id))
+        : alert('Error deleting task')
     },
-    created() {
-      this.tasks = [
-        {
-          id: 1,
-          text: "Doctors Appointment",
-          day: " March 1st at 2:30pm",
-          reminder: true
-        },
-        {
-          id: 2,
-          text: "Meeting as School",
-          day: " March 1st at 1:30pm",
-          reminder: true
-        },
-        {
-          id: 3,
-          text: "Food Shopping",
-          day: "January 7th at 5:30pm",
-          reminder: false
-        },
-      ]
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask
+    },
+    toggleReminder(id) {
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      )
+    },
+    async fetchTasks() {
+      const url = 'http://localhost:3000/tasks'
+      const data = await fetch(url)
+        .then((response) => response.json())
+        .then((tasks) => {
+          return (this.tasks = tasks)
+        })
+
+      return data
     }
   }
+}
 </script>
 
 <template>
   <main>
     <div class="container">
       <MainHeader @button-click="toggleAddTask" title="Task Tracker" :showAddTask="showAddTask" />
-      <div :class="[showAddTask ? 'form-container-transition' : 'form-container']" >
-      <AddTaskForm @add-task="addTask" />
+      <div :class="[showAddTask ? 'form-container-transition' : 'form-container']">
+        <AddTaskForm @add-task="addTask" />
       </div>
-      <TasksList 
-        @toggle-reminder="toggleReminder" 
-        @delete-task="deleteTask" 
-        :tasks="tasks" 
-      />
+      <TasksList @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks" />
     </div>
   </main>
 </template>
@@ -79,12 +86,12 @@ main {
 .form-container {
   height: 0;
   overflow-y: auto;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 
 .form-container-transition {
   height: 300px;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 
 .container {

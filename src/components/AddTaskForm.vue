@@ -1,55 +1,49 @@
 <script>
 import ButtonMain from './ButtonMain.vue'
-    export default {
-      data() {
-        return {
-          text: '',
-          day: '',
-          reminder: false
-        }
-      },
-      components: {
-        ButtonMain
-      },
-      methods: {
-        onSubmit(event) {
-          event.preventDefault();
-           if(!this.text) {
-            alert('Please Add a Task');
-            return
-           }
-
-           const newTask = {
-            id: Math.floor(Math.random() * 10000),
-            text: this.text,
-            day: this.day,
-            reminder: this.reminder
-           }
-
-           this.$emit('add-task', newTask);
-
-           this.text = ''
-            this.day = ''
-            this.reminder = false
-        }
-      }
+export default {
+  data() {
+    return {
+      text: '',
+      day: '',
+      reminder: false
     }
+  },
+  components: {
+    ButtonMain
+  },
+  methods: {
+    async onSubmit(event) {
+      event.preventDefault()
+      if (!this.text) {
+        alert('Please Add a Task')
+        return
+      }
+
+      const newTask = {
+        text: this.text,
+        day: this.day,
+        reminder: this.reminder
+      }
+
+      this.$emit('add-task', newTask);
+      
+      this.text = ''
+      this.day = ''
+      this.reminder = false
+    }
+  }
+}
 </script>
 
 <template>
-      <form @submit="onSubmit" class="add-form">
+  <form @submit="onSubmit" class="add-form">
     <div class="form-control">
       <label>Task</label>
       <input type="text" v-model="text" name="text" placeholder="Add Task" />
     </div>
     <div class="form-control">
       <label>Day & Time</label>
-      <input
-        type="text"
-        v-model="day"
-        name="day"
-        placeholder="Add Day & Time"
-      />
+      <input type="text" v-model="day" name="day" placeholder="Add Day & Time" />
     </div>
     <div class="form-control-check">
       <label>Set Reminder</label>

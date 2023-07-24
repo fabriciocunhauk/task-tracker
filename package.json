@@ -3,13 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"vite\"  \"json-server --watch db.json --port 3000\"",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "concurrently": "^8.2.0",
+    "json-server": "^0.17.3",
     "vue": "^3.3.4",
     "vue-router": "^4.2.2"
   },
