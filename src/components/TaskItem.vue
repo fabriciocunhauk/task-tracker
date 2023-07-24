@@ -23,7 +23,7 @@
 
 .task {
   background: #f4f4f4;
-  margin: 5px;
+  margin: 5px 0 5px 0;
   padding: 10px 20px;
   cursor: pointer;
 }

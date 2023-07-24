@@ -51,20 +51,15 @@ import ButtonMain from './ButtonMain.vue'
         placeholder="Add Day & Time"
       />
     </div>
-    <div class="form-control form-control-check">
+    <div class="form-control-check">
       <label>Set Reminder</label>
       <input type="checkbox" v-model="reminder" name="reminder" />
     </div>
-
     <ButtonMain type="submit" class="btn btn-block" text="Save Task" />
   </form>
 </template>
 
 <style scoped>
-.add-form {
-  margin-bottom: 40px;
-}
-
 .form-control {
   margin: 20px 0;
 }
@@ -76,12 +71,13 @@ import ButtonMain from './ButtonMain.vue'
 .form-control input {
   width: 100%;
   height: 40px;
-  margin: 5px;
   padding: 3px 7px;
   font-size: 17px;
 }
 
 .form-control-check {
+  width: 100%;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -92,7 +88,7 @@ import ButtonMain from './ButtonMain.vue'
 }
 
 .form-control-check input {
-  flex: 2;
+  width: 20px;
   height: 20px;
 }
 </style>

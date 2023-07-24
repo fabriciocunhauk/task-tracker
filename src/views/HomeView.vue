@@ -58,7 +58,7 @@
   <main>
     <div class="container">
       <MainHeader @button-click="toggleAddTask" title="Task Tracker" :showAddTask="showAddTask" />
-      <div v-if="showAddTask">
+      <div :class="[showAddTask ? 'form-container-transition' : 'form-container']" >
       <AddTaskForm @add-task="addTask" />
       </div>
       <TasksList 
@@ -71,13 +71,29 @@
 </template>
 
 <style scope>
+main {
+  display: flex;
+  justify-content: center;
+}
+
+.form-container {
+  height: 0;
+  overflow-y: auto;
+  transition-duration: .3s;
+}
+
+.form-container-transition {
+  height: 300px;
+  transition-duration: .3s;
+}
+
 .container {
   max-width: 500px;
-  margin: auto;
   overflow: auto;
   min-height: 300px;
   border: 1px solid steelblue;
-  padding: 50px;
+  padding: 30px;
   border-radius: 5px;
+  margin: 16px;
 }
 </style>
