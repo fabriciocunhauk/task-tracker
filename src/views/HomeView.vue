@@ -41,7 +41,7 @@ export default {
 
       res.status === 200
         ? (this.tasks = this.tasks.filter((task) => task.id !== id))
-        : alert('Error deleting task')
+        : alert('Error deleting task try again')
     },
     toggleAddTask() {
       this.showAddTask = !this.showAddTask
